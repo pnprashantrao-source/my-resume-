@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Resume</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .animate-section {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 3rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .animate-section.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .contact-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .contact-bar a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .job-item {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .job-item:last-child {
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+
+    .job-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #fff;
+    }
+
+    .job-date {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    ul {
+      margin-left: 1.2rem;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .skill-tag {
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header class="animate-section hero">
+      <h1>P. N. Prashanth Rao</h1>
+      <p>AML Compliance & Customer Operations Specialist</p>
+      <div class="contact-bar">
+        <span>📍 Bengaluru, India</span>
+        <span>✉️ <a href="mailto:your-email@example.com">Contact via Email</a></span>
+      </div>
+    </header>
+
+    <section class="animate-section">
+      <h2>Professional Summary</h2>
+      <p>
+        Experienced AML and customer operations professional with a proven track record in Know Your Customer (KYC) verification, compliance escalation handling, and technical troubleshooting across high-volume digital environments.
+      </p>
+    </section>
+
+    <section class="animate-section">
+      <h2>Work Experience</h2>
+
+      <div class="job-item">
+        <div class="job-header">
+          <span class="job-title">AML Officer & KYC Verification Specialist</span>
+          <span class="job-date">Previous Role</span>
+        </div>
+        <ul>
+          <li>Conducted end-to-end KYC verifications and enhanced due diligence reviews for compliance requirements.</li>
+          <li>Investigated account alerts, escalated high-risk activities, and managed internal AML reporting flows.</li>
+          <li>Collaborated with audit and risk teams to maintain regulatory alignment.</li>
+        </ul>
+      </div>
+
+      <div class="job-item">
+        <div class="job-header">
+          <span class="job-title">Technical Support & Merchant Operations Specialist</span>
+          <span class="job-date">Previous Role</span>
+        </div>
+        <ul>
+          <li>Assisted cryptocurrency users and high-volume merchants with wallet transactions, payment disputes, and access protocols.</li>
+          <li>Diagnosed and solved authentication failures, sign-in errors, and transaction exceptions.</li>
+        </ul>
+      </div>
+
+      <div class="job-item">
+        <div class="job-header">
+          <span class="job-title">Player Support & AR Systems Specialist</span>
+          <span class="job-date">Previous Role</span>
+        </div>
+        <ul>
+          <li>Handled multi-channel support (live chat, Facebook, ticketing) for augmented reality gaming platforms.</li>
+          <li>Investigated in-app purchase bugs, account entitlement errors, and client-side application crashes.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="animate-section">
+      <h2>Core Competencies</h2>
+      <div class="skills-grid">
+        <span class="skill-tag">AML Compliance</span>
+        <span class="skill-tag">KYC Verification</span>
+        <span class="skill-tag">Risk Assessment</span>
+        <span class="skill-tag">Transaction Monitoring</span>
+        <span class="skill-tag">Merchant Support</span>
+        <span class="skill-tag">Technical Troubleshooting</span>
+        <span class="skill-tag">Multi-Channel Support</span>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, {
+      threshold: 0.15
+    });
+
+    document.querySelectorAll('.animate-section').forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
