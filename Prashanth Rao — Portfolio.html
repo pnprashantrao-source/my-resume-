@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Prashanth Rao — Compliance &amp; Account Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0E; --bg2:#121218; --card:#17171F;
+    --gold:#C6A15B; --gold-soft:#8C744A;
+    --ink:#EDEAE0; --ink-dim:#9B9890;
+    --line:#2A2A33;
+    box-sizing:border-box;
+  }
+  *{box-sizing:inherit; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+  html,body{height:100%; background:var(--bg); color:var(--ink); font-family:'Inter',sans-serif;
+    padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px); overflow-x:hidden;}
+  h1,h2,h3{font-family:'Fraunces',serif; font-weight:500; letter-spacing:-0.01em;}
+  section{min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    padding:6vh 8vw; position:relative; border-bottom:1px solid var(--line);}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .9s ease, transform .9s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1; transform:none; transition:none;}}
+
+  /* HERO */
+  #hero{align-items:flex-start; background:
+    radial-gradient(ellipse at 70% 20%, rgba(198,161,91,0.14), transparent 60%), var(--bg);}
+  #hero .eyebrow{color:var(--gold); font-size:.85rem; letter-spacing:.04em; margin-bottom:1.2rem;}
+  #hero h1{font-size:clamp(2.6rem,7vw,5.5rem); line-height:1.02; max-width:14ch;}
+  #hero p.role{margin-top:1.4rem; font-size:1.15rem; color:var(--ink-dim); max-width:42ch; line-height:1.6;}
+  #hero .contact{margin-top:2.4rem; display:flex; gap:1.6rem; flex-wrap:wrap; font-size:.92rem; color:var(--ink-dim);}
+  #hero .contact a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--gold-soft);}
+  .scene-num{position:absolute; top:6vh; right:8vw; font-size:.8rem; color:var(--ink-dim); font-family:'Fraunces',serif; font-style:italic;}
+
+  /* SUMMARY */
+  #summary p{font-size:clamp(1.2rem,2.4vw,1.6rem); line-height:1.65; max-width:58ch; color:var(--ink);}
+  #summary p em{color:var(--gold); font-style:normal;}
+  .stats{display:flex; gap:3.5rem; margin-top:3rem; flex-wrap:wrap;}
+  .stat b{display:block; font-family:'Fraunces',serif; font-size:2.1rem; color:var(--gold);}
+  .stat span{font-size:.85rem; color:var(--ink-dim);}
+
+  /* EXPERIENCE */
+  #experience h2{font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:3rem;}
+  .job{display:grid; grid-template-columns:200px 1fr; gap:2rem; padding:1.8rem 0; border-top:1px solid var(--line);}
+  .job:first-of-type{border-top:none;}
+  .job .when{color:var(--gold); font-size:.9rem; font-family:'Fraunces',serif; font-style:italic; padding-top:.2rem;}
+  .job h3{font-size:1.3rem; margin-bottom:.4rem;}
+  .job .org{color:var(--ink-dim); font-size:.9rem; margin-bottom:.8rem;}
+  .job ul{padding-left:1.1rem; color:var(--ink-dim); font-size:.95rem; line-height:1.7;}
+  .job li::marker{color:var(--gold);}
+  @media (max-width:700px){.job{grid-template-columns:1fr; gap:.4rem;}}
+
+  /* SKILLS */
+  #skills{background:var(--bg2);}
+  #skills h2{font-size:clamp(1.8rem,4vw,2.6rem); margin-bottom:2.5rem;}
+  .tags{display:flex; flex-wrap:wrap; gap:.7rem; max-width:70ch;}
+  .tags span{border:1px solid var(--line); padding:.5rem 1rem; border-radius:2px; font-size:.88rem; color:var(--ink-dim);}
+  .tags span.core{border-color:var(--gold-soft); color:var(--gold);}
+  .toolrow{margin-top:2.4rem; color:var(--ink-dim); font-size:.9rem;}
+  .toolrow b{color:var(--ink); font-weight:500;}
+
+  /* CLOSING */
+  #closing{align-items:center; text-align:center; border-bottom:none;}
+  #closing h2{font-size:clamp(2rem,5vw,3.2rem); max-width:16ch;}
+  #closing p{margin-top:1.2rem; color:var(--ink-dim); max-width:40ch;}
+  #closing a.cta{margin-top:2.4rem; display:inline-block; padding:.9rem 2rem; border:1px solid var(--gold);
+    color:var(--gold); text-decoration:none; font-size:.9rem; letter-spacing:.03em; transition:background .3s, color .3s;}
+  #closing a.cta:hover{background:var(--gold); color:var(--bg);}
+</style>
+</head>
+<body>
+
+<section id="hero">
+  <div class="eyebrow reveal">Compliance &amp; Account Management</div>
+  <h1 class="reveal">Prashanth&nbsp;Rao</h1>
+  <p class="role reveal">Five years across KYC/AML compliance, VIP account management, and cross-border operations — built on precision, retention, and trust at scale.</p>
+  <div class="contact reveal">
+    <a href="mailto:pn.prashant.rao@gmail.com">pn.prashant.rao@gmail.com</a>
+    <span>+91 78298 16178</span>
+    <span>Bengaluru, Karnataka</span>
+  </div>
+</section>
+
+<section id="summary">
+  <span class="scene-num reveal">i. The Work</span>
+  <p class="reveal">I manage the accounts others can't afford to lose, and the transactions others can't afford to miss. Across <em>VIP gaming</em>, <em>crypto compliance</em>, and <em>U.S. mortgage review</em>, my work sits at the point where a customer's trust and a company's risk exposure meet — and I keep both intact.</p>
+  <div class="stats reveal">
+    <div class="stat"><b>3,000</b><span>VIP players managed</span></div>
+    <div class="stat"><b>90%</b><span>VIP retention</span></div>
+    <div class="stat"><b>1,100</b><span>KYC cases / month</span></div>
+    <div class="stat"><b>450</b><span>AML cases / month</span></div>
+    <div class="stat"><b>100%</b><span>reported QA accuracy</span></div>
+  </div>
+</section>
+
+<section id="experience">
+  <span class="scene-num reveal">ii. The Roles</span>
+  <h2 class="reveal">Experience</h2>
+
+  <div class="job reveal">
+    <div class="when">2023 – 2026</div>
+    <div>
+      <h3>Senior Consultant — Mobile Gaming (VIP Player)</h3>
+      <div class="org">IntouchCX, Bengaluru</div>
+      <ul>
+        <li>Managed 3,000 VIP players, ~300 interactions daily across Facebook and email</li>
+        <li>Maintained 90% retention through personalized engagement and proactive resolution</li>
+        <li>Supported ~$300K in monthly transaction value; average 2-minute resolution time</li>
+        <li>Ran daily/weekly reporting for 10 stakeholders on issue volume and case trends</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job reveal">
+    <div class="when">2023 – 2026</div>
+    <div>
+      <h3>AML Officer &amp; Crypto/Merchant Support Specialist</h3>
+      <div class="org">IntouchCX, Bengaluru</div>
+      <ul>
+        <li>Processed ~1,100 KYC cases and ~450 AML cases monthly</li>
+        <li>Maintained 100% reported QA accuracy against a 60-minute SLA</li>
+        <li>Supported ~100 merchants/customers on wallet, payment, and compliance issues</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job reveal">
+    <div class="when">2022 – 2023</div>
+    <div>
+      <h3>Senior Travel Consultant</h3>
+      <div class="org">Olivel Tours, Dubai</div>
+      <ul>
+        <li>Led and mentored a 15-member operations team</li>
+        <li>Managed ~95 bookings and ~110 customers per month, coordinating vendors and payments</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="job reveal">
+    <div class="when">2020 – 2022</div>
+    <div>
+      <h3>Title Processor — Mortgage</h3>
+      <div class="org">Avanze Technologies India</div>
+      <ul>
+        <li>Processed ~550 U.S. mortgage files monthly at 98% accuracy within a 24-hour SLA</li>
+        <li>Reviewed title reports and borrower documents to flag risk and discrepancies</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <span class="scene-num reveal">iii. The Toolkit</span>
+  <h2 class="reveal">Skills &amp; Certifications</h2>
+  <div class="tags reveal">
+    <span class="core">KYC / AML Compliance</span>
+    <span class="core">PEP &amp; Sanctions Screening</span>
+    <span class="core">CDD &amp; Risk Review</span>
+    <span>VIP Account Management</span>
+    <span>Crypto &amp; Merchant Support</span>
+    <span>Document Verification</span>
+    <span>Escalation Management</span>
+    <span>Technical Troubleshooting</span>
+    <span>Reporting &amp; Trend Analysis</span>
+    <span>Cross-Team Liaison</span>
+  </div>
+  <div class="toolrow reveal"><b>Tools —</b> Zendesk CRM, SumSub, Citrix, Title Point, Title 365, PABS, Google Sheets, VLOOKUP/XLOOKUP</div>
+  <div class="toolrow reveal"><b>Certifications —</b> AWS Foundations of Prompt Engineering · CCNA (Cisco Certified Network Associate) · AI Tools &amp; Claude (2026)</div>
+</section>
+
+<section id="closing">
+  <h2 class="reveal">Let's talk about the next account.</h2>
+  <p class="reveal">Open to compliance, AML, and account-management roles where precision and trust both matter.</p>
+  <a class="cta reveal" href="mailto:pn.prashant.rao@gmail.com">Get in touch</a>
+</section>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.2});
+  els.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
