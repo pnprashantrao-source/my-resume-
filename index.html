@@ -3,15 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interactive Resume</title>
+  <title>Prashanth Rao PN | Cinematic Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
+      --bg: #030712;
+      --card-bg: rgba(15, 23, 42, 0.7);
+      --border: rgba(56, 189, 248, 0.25);
       --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.5);
+      --gold: #f59e0b;
       --text: #f8fafc;
       --text-muted: #94a3b8;
-      --border: #334155;
     }
 
     * {
@@ -22,220 +27,460 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background-color: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
+      position: relative;
     }
 
-    .container {
-      max-width: 800px;
+    #canvas-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 2rem 1.5rem;
+      padding: 3rem 1.5rem 6rem;
     }
 
-    .animate-section {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      margin-bottom: 3rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-    }
-
-    .animate-section.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero {
-      text-align: center;
-      padding: 4rem 1rem 3rem;
-    }
-
-    .hero h1 {
-      font-size: 2.5rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-    }
-
-    .contact-bar {
+    .hero-banner {
+      min-height: 85vh;
       display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+
+    .avatar-frame {
+      position: relative;
+      width: 170px;
+      height: 170px;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-frame::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(from 0deg, var(--accent), transparent, var(--gold), transparent, var(--accent));
+      animation: rotateRing 6s linear infinite;
+      filter: blur(4px);
+    }
+
+    @keyframes rotateRing {
+      100% { transform: rotate(360deg); }
+    }
+
+    .avatar-img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #000;
+    }
+
+    .hero-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #ffffff 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.8rem;
+      filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.4));
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.8rem;
+    }
+
+    .contact-dock {
+      display: flex;
+      gap: 1.5rem;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 1.2rem;
-      margin-top: 1rem;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.8rem;
+      border-radius: 999px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
       font-size: 0.95rem;
     }
 
-    .contact-bar a {
+    .contact-dock a {
       color: var(--accent);
       text-decoration: none;
     }
 
-    h2 {
-      font-size: 1.4rem;
-      border-bottom: 2px solid var(--border);
-      padding-bottom: 0.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--accent);
+    .hud-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin: 4rem 0;
+    }
+
+    .hud-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem 1.2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      backdrop-filter: blur(14px);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .hud-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+    }
+
+    .hud-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 15px var(--accent-glow);
+    }
+
+    .hud-label {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      margin-top: 0.3rem;
     }
 
-    .job-item {
-      margin-bottom: 1.75rem;
-      padding-bottom: 1.25rem;
-      border-bottom: 1px dashed var(--border);
+    .section-wrap {
+      margin-bottom: 5rem;
     }
 
-    .job-item:last-child {
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: none;
+    .section-header {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .job-header {
+    .section-header::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    .story-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      margin-bottom: 1.4rem;
+      backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .story-card:hover {
+      border-color: rgba(56, 189, 248, 0.6);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.15);
+    }
+
+    .story-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      text-align: left;
+      padding: 1.8rem;
       display: flex;
       justify-content: space-between;
-      flex-wrap: wrap;
-      margin-bottom: 0.4rem;
+      align-items: center;
+      cursor: pointer;
+      font-family: inherit;
     }
 
-    .job-title {
-      font-weight: 600;
-      font-size: 1.1rem;
+    .story-role {
+      font-size: 1.2rem;
+      font-weight: 700;
       color: #fff;
     }
 
-    .job-date {
-      color: var(--text-muted);
+    .story-meta {
+      color: var(--gold);
       font-size: 0.9rem;
+      margin-top: 0.2rem;
     }
 
-    ul {
+    .chevron {
+      color: var(--accent);
+      font-size: 1.2rem;
+      transition: transform 0.4s ease;
+    }
+
+    .story-card.open .chevron {
+      transform: rotate(180deg);
+    }
+
+    .story-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 1.8rem;
+    }
+
+    .story-card.open .story-content {
+      max-height: 500px;
+      padding: 1rem 1.8rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .story-content ul {
       margin-left: 1.2rem;
-      color: var(--text-muted);
+      color: #cbd5e1;
     }
 
-    li {
-      margin-bottom: 0.4rem;
+    .story-content li {
+      margin-bottom: 0.6rem;
     }
 
-    .skills-grid {
+    .badge-rack {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.6rem;
+      gap: 0.75rem;
     }
 
-    .skill-tag {
-      background: rgba(56, 189, 248, 0.1);
+    .hud-badge {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid var(--border);
       color: var(--accent);
-      border: 1px solid rgba(56, 189, 248, 0.2);
-      padding: 0.4rem 0.8rem;
-      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
       font-size: 0.85rem;
       font-weight: 500;
+    }
+
+    .hud-badge:hover {
+      background: var(--accent);
+      color: #000;
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
+  <canvas id="canvas-bg"></canvas>
 
-    <header class="animate-section hero">
-      <h1>P. N. Prashanth Rao</h1>
-      <p>AML Compliance & Customer Operations Specialist</p>
-      <div class="contact-bar">
-        <span>📍 Bengaluru, India</span>
-        <span>✉️ <a href="mailto:your-email@example.com">Contact via Email</a></span>
+  <div class="wrapper">
+
+    <header class="hero-banner">
+      <div class="avatar-frame">
+        <img src="ChatGPT Image Sep 20, 2026, 07_34_20 PM.png" alt="Prashanth Rao PN" class="avatar-img" />
+      </div>
+      <h1 class="hero-title">PRASHANTH RAO PN</h1>
+      <p class="hero-tagline">VIP Account Management • Customer Success • KYC/AML Compliance</p>
+      <div class="contact-dock">
+        <span>📍 Bengaluru, Karnataka</span>
+        <span>✉️ <a href="mailto:pn.prashant.rao@gmail.com">pn.prashant.rao@gmail.com</a></span>
+        <span>📞 +91 78298 16178</span>
       </div>
     </header>
 
-    <section class="animate-section">
-      <h2>Professional Summary</h2>
-      <p>
-        Experienced AML and customer operations professional with a proven track record in Know Your Customer (KYC) verification, compliance escalation handling, and technical troubleshooting across high-volume digital environments.
-      </p>
-    </section>
-
-    <section class="animate-section">
-      <h2>Work Experience</h2>
-
-      <div class="job-item">
-        <div class="job-header">
-          <span class="job-title">AML Officer & KYC Verification Specialist</span>
-          <span class="job-date">Previous Role</span>
-        </div>
-        <ul>
-          <li>Conducted end-to-end KYC verifications and enhanced due diligence reviews for compliance requirements.</li>
-          <li>Investigated account alerts, escalated high-risk activities, and managed internal AML reporting flows.</li>
-          <li>Collaborated with audit and risk teams to maintain regulatory alignment.</li>
-        </ul>
+    <section class="hud-grid">
+      <div class="hud-card">
+        <div class="hud-value" data-target="3000">0</div>
+        <div class="hud-label">VIP Players Managed</div>
       </div>
-
-      <div class="job-item">
-        <div class="job-header">
-          <span class="job-title">Technical Support & Merchant Operations Specialist</span>
-          <span class="job-date">Previous Role</span>
-        </div>
-        <ul>
-          <li>Assisted cryptocurrency users and high-volume merchants with wallet transactions, payment disputes, and access protocols.</li>
-          <li>Diagnosed and solved authentication failures, sign-in errors, and transaction exceptions.</li>
-        </ul>
+      <div class="hud-card">
+        <div class="hud-value" data-target="90" data-suffix="%">0</div>
+        <div class="hud-label">VIP Retention Rate</div>
       </div>
-
-      <div class="job-item">
-        <div class="job-header">
-          <span class="job-title">Player Support & AR Systems Specialist</span>
-          <span class="job-date">Previous Role</span>
-        </div>
-        <ul>
-          <li>Handled multi-channel support (live chat, Facebook, ticketing) for augmented reality gaming platforms.</li>
-          <li>Investigated in-app purchase bugs, account entitlement errors, and client-side application crashes.</li>
-        </ul>
+      <div class="hud-card">
+        <div class="hud-value" data-target="300" data-prefix="$" data-suffix="K">0</div>
+        <div class="hud-label">Monthly Transaction Value</div>
+      </div>
+      <div class="hud-card">
+        <div class="hud-value" data-target="100" data-suffix="%">0</div>
+        <div class="hud-label">Reported QA Accuracy</div>
       </div>
     </section>
 
-    <section class="animate-section">
-      <h2>Core Competencies</h2>
-      <div class="skills-grid">
-        <span class="skill-tag">AML Compliance</span>
-        <span class="skill-tag">KYC Verification</span>
-        <span class="skill-tag">Risk Assessment</span>
-        <span class="skill-tag">Transaction Monitoring</span>
-        <span class="skill-tag">Merchant Support</span>
-        <span class="skill-tag">Technical Troubleshooting</span>
-        <span class="skill-tag">Multi-Channel Support</span>
+    <section class="section-wrap">
+      <h2 class="section-header">Operational Chronicles</h2>
+
+      <div class="story-card open">
+        <button class="story-btn">
+          <div>
+            <div class="story-role">Senior Consultant – Mobile Gaming (VIP Player)</div>
+            <div class="story-meta">IntouchCX • Bengaluru, India • 2023 – 2026</div>
+          </div>
+          <span class="chevron">▼</span>
+        </button>
+        <div class="story-content">
+          <ul>
+            <li>Managed a high-stakes portfolio of 3,000 VIP players, executing ~300 daily interactions across Facebook and direct channels[cite: 7, 9].</li>
+            <li>Maintained 90% VIP retention through proactive relationship management and immediate payment dispute resolution[cite: 7, 9].</li>
+            <li>Supported $300K monthly transaction volume in VIP top-ups and store operations[cite: 7, 9].</li>
+            <li>Averaged 2-minute response turnaround times for tier-1 players[cite: 7, 9].</li>
+            <li>Replicated and logged technical defects with backend engineers to stabilize customer gameplay[cite: 7, 9].</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <button class="story-btn">
+          <div>
+            <div class="story-role">AML Officer & Crypto/Merchant Support Specialist</div>
+            <div class="story-meta">IntouchCX • Bengaluru, India • 2023 – 2026</div>
+          </div>
+          <span class="chevron">▼</span>
+        </button>
+        <div class="story-content">
+          <ul>
+            <li>Processed ~1,100 KYC cases monthly with strict compliance and risk auditing protocols[cite: 7, 9].</li>
+            <li>Handled ~450 AML escalation files monthly while maintaining a 100% QA pass rate[cite: 7, 9].</li>
+            <li>Managed merchant-level escalations for crypto wallet transactions under a 60-minute SLA[cite: 7, 9].</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <button class="story-btn">
+          <div>
+            <div class="story-role">Senior Travel Consultant</div>
+            <div class="story-meta">Olivel Tours • Dubai, UAE • 2022 – 2023</div>
+          </div>
+          <span class="chevron">▼</span>
+        </button>
+        <div class="story-content">
+          <ul>
+            <li>Mentored and directed a 15-member operations team in Dubai, ensuring service reliability across global bookings[cite: 7, 9].</li>
+            <li>Structured custom VIP itineraries and coordinated end-to-end vendor reconciliations[cite: 7, 9].</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <button class="story-btn">
+          <div>
+            <div class="story-role">Title Processor – Mortgage Operations</div>
+            <div class="story-meta">Avanze Technologies • Bengaluru, India • 2020 – 2022</div>
+          </div>
+          <span class="chevron">▼</span>
+        </button>
+        <div class="story-content">
+          <ul>
+            <li>Audited ~550 U.S. mortgage files monthly with a 98% accuracy record within a 24-hour SLA[cite: 7, 9].</li>
+            <li>Identified critical title discrepancies and documentation issues prior to final lender submissions[cite: 7, 9].</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-wrap">
+      <h2 class="section-header">Core Arsenal & Credentials</h2>
+      <div class="badge-rack">
+        <span class="hud-badge">Zendesk CRM</span>
+        <span class="hud-badge">Slack</span>
+        <span class="hud-badge">Google Sheets</span>
+        <span class="hud-badge">SumSub</span>
+        <span class="hud-badge">Citrix</span>
+        <span class="hud-badge">Title Point / 365</span>
+        <span class="hud-badge">AWS Prompt Engineering</span>
+        <span class="hud-badge">CCNA</span>
+        <span class="hud-badge">AI Tools & Claude</span>
+        <span class="hud-badge">B.Com (GITAM)</span>
       </div>
     </section>
 
   </div>
 
   <script>
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 75; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 2,
+        speed: Math.random() * 0.4 + 0.1
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.6)';
+      stars.forEach(s => {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+        ctx.fill();
+        s.y -= s.speed;
+        if (s.y < 0) s.y = canvas.height;
+      });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    document.querySelectorAll('.story-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.parentElement.classList.toggle('open');
+      });
+    });
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
+          const el = entry.target;
+          const target = +el.getAttribute('data-target');
+          const pre = el.getAttribute('data-prefix') || '';
+          const suf = el.getAttribute('data-suffix') || '';
+          let count = 0;
+          const inc = target / 50;
+          const update = () => {
+            count += inc;
+            if (count < target) {
+              el.innerText = `${pre}${Math.ceil(count).toLocaleString()}${suf}`;
+              requestAnimationFrame(update);
+            } else {
+              el.innerText = `${pre}${target.toLocaleString()}${suf}`;
+            }
+          };
+          update();
+          observer.unobserve(el);
         }
       });
-    }, {
-      threshold: 0.15
-    });
+    }, { threshold: 0.5 });
 
-    document.querySelectorAll('.animate-section').forEach(section => {
-      observer.observe(section);
-    });
+    document.querySelectorAll('.hud-value').forEach(n => observer.observe(n));
   </script>
 </body>
 </html>
